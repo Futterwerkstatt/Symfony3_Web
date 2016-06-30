@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections;
 
 /**
  * Taxonomy
@@ -51,17 +51,11 @@ class Taxonomy {
     private $description;
 
     /**
-     * @var guid
-     *
-     * @ORM\Column(name="slug", type="guid", unique=true)
-     */
-    private $slug;
-
-    /**
-     * @ORM\OneToMany(targetEntity="TaxonomyTerm", mappedBy="taxonomy", cascade={"remove","persist"})
+     * @ORM\OneToMany(targetEntity="Term", mappedBy="taxonomy", cascade={"remove","persist"})
      */
     private $terms;
 
+    
     /**
      * Constructor
      */
@@ -71,79 +65,15 @@ class Taxonomy {
         $this->terms = new ArrayCollection();
     }
 
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Taxonomy
-     */
-    public function setName($name) {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Taxonomy
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription() {
-        return $this->description;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param guid $slug
-     *
-     * @return Taxonomy
-     */
-    public function setSlug($slug) {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return guid
-     */
-    public function getSlug() {
-        return $this->slug;
     }
 
     /**
@@ -153,7 +83,8 @@ class Taxonomy {
      *
      * @return Taxonomy
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -164,7 +95,8 @@ class Taxonomy {
      *
      * @return \DateTime
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -175,7 +107,8 @@ class Taxonomy {
      *
      * @return Taxonomy
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -186,19 +119,67 @@ class Taxonomy {
      *
      * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Taxonomy
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Taxonomy
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Add term
      *
-     * @param \AppBundle\Entity\TaxonomyTerm $term
+     * @param \AppBundle\Entity\Term $term
      *
      * @return Taxonomy
      */
-    public function addTerm(\AppBundle\Entity\TaxonomyTerm $term)
+    public function addTerm(\AppBundle\Entity\Term $term)
     {
         $this->terms[] = $term;
 
@@ -208,9 +189,9 @@ class Taxonomy {
     /**
      * Remove term
      *
-     * @param \AppBundle\Entity\TaxonomyTerm $term
+     * @param \AppBundle\Entity\Term $term
      */
-    public function removeTerm(\AppBundle\Entity\TaxonomyTerm $term)
+    public function removeTerm(\AppBundle\Entity\Term $term)
     {
         $this->terms->removeElement($term);
     }

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Taxonomy list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Slug</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for taxonomy in taxonomies %}
+            <tr>
+                <td><a href="{{ path('taxonomy_show', { 'id': taxonomy.id }) }}">{{ taxonomy.id }}</a></td>
+                <td>{% if taxonomy.createdAt %}{{ taxonomy.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if taxonomy.updatedAt %}{{ taxonomy.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ taxonomy.name }}</td>
+                <td>{{ taxonomy.description }}</td>
+                <td>{{ taxonomy.slug }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('taxonomy_show', { 'id': taxonomy.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('taxonomy_edit', { 'id': taxonomy.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('taxonomy_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

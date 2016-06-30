@@ -2,15 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TaxonomyTerm
+ * Term
  *
- * @ORM\Table(name="taxonomy_term")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxonomyTermRepository")
+ * @ORM\Table(name="terms")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TermRepository")
  */
-class TaxonomyTerm {
+class Term {
 
     /**
      * @var int
@@ -50,20 +51,13 @@ class TaxonomyTerm {
     private $description;
 
     /**
-     * @var guid
-     *
-     * @ORM\Column(name="slug", type="guid", unique=true)
-     */
-    private $slug;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="TaxonomyTerm", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Term", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="TaxonomyTerm", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Term", mappedBy="parent")
      */
     private $children;
 
@@ -72,20 +66,25 @@ class TaxonomyTerm {
      */
     private $taxonomy;
 
+
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
-    }
+        $this->children = new ArrayCollection();
+    }    
+  
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -94,9 +93,10 @@ class TaxonomyTerm {
      *
      * @param \DateTime $createdAt
      *
-     * @return TaxonomyTerm
+     * @return Term
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -107,7 +107,8 @@ class TaxonomyTerm {
      *
      * @return \DateTime
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -116,9 +117,10 @@ class TaxonomyTerm {
      *
      * @param \DateTime $updatedAt
      *
-     * @return TaxonomyTerm
+     * @return Term
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -129,7 +131,8 @@ class TaxonomyTerm {
      *
      * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
@@ -138,9 +141,10 @@ class TaxonomyTerm {
      *
      * @param string $name
      *
-     * @return TaxonomyTerm
+     * @return Term
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -151,7 +155,8 @@ class TaxonomyTerm {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -160,9 +165,10 @@ class TaxonomyTerm {
      *
      * @param string $description
      *
-     * @return TaxonomyTerm
+     * @return Term
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -173,41 +179,19 @@ class TaxonomyTerm {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
-     * Set slug
-     *
-     * @param guid $slug
-     *
-     * @return TaxonomyTerm
-     */
-    public function setSlug($slug) {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return guid
-     */
-    public function getSlug() {
-        return $this->slug;
-    }
-
-
-    /**
      * Set parent
      *
-     * @param \AppBundle\Entity\TaxonomyTerm $parent
+     * @param \AppBundle\Entity\Term $parent
      *
-     * @return TaxonomyTerm
+     * @return Term
      */
-    public function setParent(\AppBundle\Entity\TaxonomyTerm $parent = null)
+    public function setParent(\AppBundle\Entity\Term $parent = null)
     {
         $this->parent = $parent;
 
@@ -217,7 +201,7 @@ class TaxonomyTerm {
     /**
      * Get parent
      *
-     * @return \AppBundle\Entity\TaxonomyTerm
+     * @return \AppBundle\Entity\Term
      */
     public function getParent()
     {
@@ -227,11 +211,11 @@ class TaxonomyTerm {
     /**
      * Add child
      *
-     * @param \AppBundle\Entity\TaxonomyTerm $child
+     * @param \AppBundle\Entity\Term $child
      *
-     * @return TaxonomyTerm
+     * @return Term
      */
-    public function addChild(\AppBundle\Entity\TaxonomyTerm $child)
+    public function addChild(\AppBundle\Entity\Term $child)
     {
         $this->children[] = $child;
 
@@ -241,9 +225,9 @@ class TaxonomyTerm {
     /**
      * Remove child
      *
-     * @param \AppBundle\Entity\TaxonomyTerm $child
+     * @param \AppBundle\Entity\Term $child
      */
-    public function removeChild(\AppBundle\Entity\TaxonomyTerm $child)
+    public function removeChild(\AppBundle\Entity\Term $child)
     {
         $this->children->removeElement($child);
     }
@@ -259,26 +243,26 @@ class TaxonomyTerm {
     }
 
     /**
-     * Set vocabulary
+     * Set taxonomy
      *
-     * @param \AppBundle\Entity\Taxonomy $vocabulary
+     * @param \AppBundle\Entity\Taxonomy $taxonomy
      *
-     * @return TaxonomyTerm
+     * @return Term
      */
-    public function setVocabulary(\AppBundle\Entity\Taxonomy $vocabulary = null)
+    public function setTaxonomy(\AppBundle\Entity\Taxonomy $taxonomy = null)
     {
-        $this->vocabulary = $vocabulary;
+        $this->taxonomy = $taxonomy;
 
         return $this;
     }
 
     /**
-     * Get vocabulary
+     * Get taxonomy
      *
      * @return \AppBundle\Entity\Taxonomy
      */
-    public function getVocabulary()
+    public function getTaxonomy()
     {
-        return $this->vocabulary;
+        return $this->taxonomy;
     }
 }
