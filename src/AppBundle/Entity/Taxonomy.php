@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TaxonomyTerm
  *
  * @ORM\Table(name="taxonomy")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxonomyTermRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxonomyRepository")
  */
 class Taxonomy {
 
@@ -51,22 +51,17 @@ class Taxonomy {
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TaxonomyTerm", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="TaxonomyTerm", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="parent")
      * @ORM\OrderBy({"order" = "ASC"})
      */
     private $children;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Taxonomy")
-     * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
-     */
-    private $taxonomy;
 
     public function __construct() {
         $this->createdAt = new \DateTime();
