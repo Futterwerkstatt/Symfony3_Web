@@ -16,6 +16,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
                 ->setUsername('admin')
                 ->setPassword('admin')
                 ->setEmail('admin@mail.com')
+                ->setEnabled(true)
                 ->setRoles(array('ROLE_ADMIN'));
 
         $manager->persist($userAdmin);
@@ -25,6 +26,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
                 ->setUsername('user')
                 ->setPassword('user')
                 ->setEmail('user@mail.com')
+                ->setEnabled(true)
                 ->setRoles(array('ROLE_USER'));
 
         $manager->persist($user);

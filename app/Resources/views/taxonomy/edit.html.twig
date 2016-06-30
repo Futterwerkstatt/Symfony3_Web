@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Taxonomy edit</h1>
+    <div class="row">
+        <div class="container">    
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+            <h2 class="page-header">Taxonomy edit</h2>
 
-    <ul>
-        <li>
-            <a href="{{ path('taxonomy_index') }}">Back to the list</a>
-        </li>
-        <li>
+            {{ form_start(edit_form) }}
+            {{ form_widget(edit_form) }}
+            <input class="btn btn-primary" type="submit" value="Save" />
+            <a class="btn btn-default" href="{{ path('admin_taxonomy_index') }}">Cancel</a>
+            {{ form_end(edit_form) }}
+
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <input class="btn btn-primary" type="submit" value="Delete">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+        </div>
+    </div>              
 {% endblock %}
