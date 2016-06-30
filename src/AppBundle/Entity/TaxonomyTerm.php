@@ -281,4 +281,28 @@ class TaxonomyTerm {
     {
         return $this->vocabulary;
     }
+
+    /**
+     * Set taxonomy
+     *
+     * @param \AppBundle\Entity\Taxonomy $taxonomy
+     *
+     * @return TaxonomyTerm
+     */
+    public function setTaxonomy(\AppBundle\Entity\Taxonomy $taxonomy = null)
+    {
+        $this->taxonomy = $taxonomy;
+
+        return $this;
+    }
+
+    /**
+     * Get taxonomy
+     *
+     * @return \AppBundle\Entity\Taxonomy
+     */
+    public function getTaxonomy()
+    {
+        return $this->taxonomy;
+    }
 }

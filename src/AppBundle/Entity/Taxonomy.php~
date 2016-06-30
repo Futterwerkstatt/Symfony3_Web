@@ -2,14 +2,14 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections;
 
 /**
- * TaxonomyTerm
+ * Taxonomy
  *
  * @ORM\Table(name="taxonomy")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxonomyTermRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxonomyRepository")
  */
 class Taxonomy {
 
@@ -51,22 +51,24 @@ class Taxonomy {
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
+     * @var guid
+     *
+     * @ORM\Column(name="slug", type="guid", unique=true)
      */
-    private $parent;
+    private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="parent")
-     * @ORM\OrderBy({"order" = "ASC"})
+     * @ORM\OneToMany(targetEntity="TaxonomyTerm", mappedBy="taxonomy", cascade={"remove","persist"})
      */
-    private $children;
+    private $terms;
 
-
+    /**
+     * Constructor
+     */
     public function __construct() {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
-        $this->children = new ArrayCollection();
+        $this->terms = new ArrayCollection();
     }
 
     /**
@@ -79,55 +81,11 @@ class Taxonomy {
     }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return TaxonomyTerm
-     */
-    public function setCreatedAt($createdAt) {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt() {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return TaxonomyTerm
-     */
-    public function setUpdatedAt($updatedAt) {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt() {
-        return $this->updatedAt;
-    }
-
-    /**
      * Set name
      *
      * @param string $name
      *
-     * @return TaxonomyTerm
+     * @return Taxonomy
      */
     public function setName($name) {
         $this->name = $name;
@@ -149,7 +107,7 @@ class Taxonomy {
      *
      * @param string $description
      *
-     * @return TaxonomyTerm
+     * @return Taxonomy
      */
     public function setDescription($description) {
         $this->description = $description;
@@ -167,83 +125,103 @@ class Taxonomy {
     }
 
     /**
-     * Set parent
+     * Set slug
      *
-     * @param string $parent
+     * @param guid $slug
      *
-     * @return TaxonomyTerm
+     * @return Taxonomy
      */
-    public function setParent($parent) {
-        $this->parent = $parent;
+    public function setSlug($slug) {
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * Get parent
+     * Get slug
      *
-     * @return string
+     * @return guid
      */
-    public function getParent() {
-        return $this->parent;
+    public function getSlug() {
+        return $this->slug;
     }
 
-
     /**
-     * Add child
+     * Set createdAt
      *
-     * @param \AppBundle\Entity\TaxonomyTerm $child
+     * @param \DateTime $createdAt
      *
-     * @return TaxonomyTerm
+     * @return Taxonomy
      */
-    public function addChild(\AppBundle\Entity\TaxonomyTerm $child)
-    {
-        $this->children[] = $child;
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     /**
-     * Remove child
+     * Get createdAt
      *
-     * @param \AppBundle\Entity\TaxonomyTerm $child
+     * @return \DateTime
      */
-    public function removeChild(\AppBundle\Entity\TaxonomyTerm $child)
-    {
-        $this->children->removeElement($child);
+    public function getCreatedAt() {
+        return $this->createdAt;
     }
 
     /**
-     * Get children
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Taxonomy
+     */
+    public function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+
+    /**
+     * Add term
+     *
+     * @param \AppBundle\Entity\TaxonomyTerm $term
+     *
+     * @return Taxonomy
+     */
+    public function addTerm(\AppBundle\Entity\TaxonomyTerm $term)
+    {
+        $this->terms[] = $term;
+
+        return $this;
+    }
+
+    /**
+     * Remove term
+     *
+     * @param \AppBundle\Entity\TaxonomyTerm $term
+     */
+    public function removeTerm(\AppBundle\Entity\TaxonomyTerm $term)
+    {
+        $this->terms->removeElement($term);
+    }
+
+    /**
+     * Get terms
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getChildren()
+    public function getTerms()
     {
-        return $this->children;
-    }
-
-    /**
-     * Set taxonomy
-     *
-     * @param \AppBundle\Entity\Taxonomy $taxonomy
-     *
-     * @return TaxonomyTerm
-     */
-    public function setTaxonomy(\AppBundle\Entity\Taxonomy $taxonomy = null)
-    {
-        $this->taxonomy = $taxonomy;
-
-        return $this;
-    }
-
-    /**
-     * Get taxonomy
-     *
-     * @return \AppBundle\Entity\Taxonomy
-     */
-    public function getTaxonomy()
-    {
-        return $this->taxonomy;
+        return $this->terms;
     }
 }
