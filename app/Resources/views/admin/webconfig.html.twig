@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    {{ form_start(edit_form) }}
     <div class="page-header">
-        <h2>{{ 'nav.admin.config'|trans({}, 'AppBundle') }}</h2>
+        <h2 class="text-primary"><i class="fa fa-cog" aria-hidden="true"></i> {{ 'nav.admin.config'|trans({}, 'AppBundle') }}<span class="pull-right"> <input class="btn btn-primary btn-sm" type="submit" value="Save" /></span> </h2>
     </div>
 
     <!-- Nav tabs -->
@@ -17,19 +17,22 @@
 
         <div role="tabpanel" class="tab-pane active" id="config">     
             <div class="row">
-                {{ form_start(edit_form) }}
+
                 {{ form_errors(edit_form) }}
                 <div class="col-sm-6">
-                    <div class="page-header"><h3>{{ 'admin.config.website'|trans({}, 'AppBundle') }}</h3></div>
+                    <div class="page-header"><h3><i class="fa fa-info-circle text-primary" aria-hidden="true"></i> {{ 'admin.config.website'|trans({}, 'AppBundle') }}</h3></div>
                             {{ form_row(edit_form.websiteName) }}
                             {{ form_row(edit_form.websiteDesc) }}
+                    <div class="page-header"><h3><i class="fa fa-font text-primary" aria-hidden="true"></i> {{ 'admin.config.fonts'|trans({}, 'AppBundle') }}</h3></div>
+                            {{ form_row(edit_form.fontAwesomeCSS) }}
+                            {{ form_row(edit_form.fontAwesomeEnable) }}
                 </div>
                 <div class="col-sm-6">
-                    <div class="page-header"><h3>{{ 'admin.config.theme'|trans({}, 'AppBundle') }}</h3></div>
+                    <div class="page-header"><h3><i class="fa fa-picture-o text-primary" aria-hidden="true"></i> {{ 'admin.config.theme'|trans({}, 'AppBundle') }}</h3></div>
                             {#                    {{ form_widget(edit_form) }}#}
 
                     {{ form_widget(edit_form) }}
-                    <input class="btn btn-primary btn-sm" type="submit" value="Save" />
+
 
                 </div>
                 {{ form_end(edit_form) }}        
@@ -39,7 +42,7 @@
         <div role="tabpanel" class="tab-pane" id="preview"> 
             {{ include('admin/webconfig_htmldemo.html.twig') }}
         </div>
-            
+
     </div>
 
 {% endblock %}

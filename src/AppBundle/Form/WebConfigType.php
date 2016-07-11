@@ -5,6 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+
 use AppBundle\Entity\WebConfig;
 
 class WebConfigType extends AbstractType {
@@ -22,18 +26,25 @@ class WebConfigType extends AbstractType {
         $builder
                 ->add('websiteName')
                 ->add('websiteDesc')
-                ->add('bootstrapTheme', \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class, [
+                ->add('fontAwesomeEnable', CheckboxType::class , [
+                    'label' => 'Enable Font Awesome',
+                    'required' => false
+                ])
+                ->add('fontAwesomeCSS', UrlType::class, [
+                    'label' => "Font Awesome CSS", 'disabled' => true
+                ])                
+                ->add('bootstrapTheme', ChoiceType::class, [
                     'choices' => $themes,
                     'label' => "Theme",
                 ])
                 ->add('bootstrapEnable')
-                ->add('bootstrapCSS', \Symfony\Component\Form\Extension\Core\Type\UrlType::class, [
+                ->add('bootstrapCSS', UrlType::class, [
                     'label' => "Bootstrap CSS", 'disabled' => true
                 ])
-                ->add('bootstrapJS', \Symfony\Component\Form\Extension\Core\Type\UrlType::class, [
+                ->add('bootstrapJS', UrlType::class, [
                     'label' => "Bootstrap JS", 'disabled' => true
                 ])
-                ->add('jQuery', \Symfony\Component\Form\Extension\Core\Type\UrlType::class, [
+                ->add('jQuery', UrlType::class, [
                     'label' => "jQuery", 'disabled' => true
                 ])                
         ;

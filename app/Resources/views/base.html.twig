@@ -5,16 +5,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}{{ webconfig.websiteName }} / {{ webconfig.websiteDesc }}{% endblock %}</title>
+        <title>{% block title %}{{ webconfig.websiteName }} {% if webconfig.websiteDesc %} / {{ webconfig.websiteDesc }} {% endif %} {% endblock %}</title>
 
         {% if webconfig.bootstrapEnable %}
-        <link href="{{ webconfig.bootstrapCSS }}" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link href="{{ webconfig.bootstrapTheme }}" rel="stylesheet">       
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+            <link href="{{ webconfig.bootstrapCSS }}" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+            <link href="{{ webconfig.bootstrapTheme }}" rel="stylesheet">       
 
-        <style>
-            body { margin-top:60px; }
-        </style>
+            <style>
+                body { margin-top:60px; }
+            </style>
+        {% endif %}
+        {% if webconfig.fontAwesomeEnable %}
+            <link href="{{ webconfig.fontAwesomeCSS }}" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
         {% endif %}
         
     {% block stylesheets %}{% endblock %}
@@ -66,13 +68,13 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span>{{ 'nav.admin'|trans({}, 'AppBundle') }}</a>
                             <ul class="dropdown-menu">
-                               
+
                                 <li><a href="{{ path('admin_config') }}">{{ 'nav.admin.config'|trans({}, 'AppBundle') }}</a></li>
                             </ul>
                         </li>
                     </ul>
                 {% endif %}                
-                
+
             </div><!--/.navbar-collapse -->
         </div>
     </nav>   
@@ -84,13 +86,13 @@
             </div>
         {% endfor %}
     {% endfor %}                
-    
+
     <div class="container" id="content">{% block body %}{% endblock %}</div>
 
-{% if webconfig.bootstrapEnable %}
-<script type="text/javascript" src="{{ webconfig.getjQuery }}"></script>
-<script type="text/javascript" src="{{ webconfig.bootstrapJS }}" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-{% endif %}
+    {% if webconfig.bootstrapEnable %}
+        <script type="text/javascript" src="{{ webconfig.getjQuery }}"></script>
+        <script type="text/javascript" src="{{ webconfig.bootstrapJS }}" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    {% endif %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

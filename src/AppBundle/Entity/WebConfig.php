@@ -31,17 +31,17 @@ class WebConfig {
     /**
      * @var string
      *
-     * @ORM\Column(name="website_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="website_name", type="string", length=255)
      */
-    private $websiteName;    
+    private $websiteName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="website_description", type="string", length=255, nullable=true)
      */
-    private $websiteDesc;    
-    
+    private $websiteDesc;
+
     /**
      * @var bool
      *
@@ -57,6 +57,13 @@ class WebConfig {
     private $bootstrapTheme;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="fa_enable", type="boolean")
+     */
+    private $fontAwesomeEnable;
+
+    /**
      * @var array
      */
     private $CDN = [
@@ -64,54 +71,55 @@ class WebConfig {
         'js' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js',
         'jquery' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js',
         'theme' => [
-            'cerulean' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css',
-            'cosmo' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cosmo/bootstrap.min.css',
-            'cyborg' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css',
-            'darkly' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/darkly/bootstrap.min.css',
-            'flatly' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css',
-            'journal' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css',
-            'lumen' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css',
-            'paper' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css',
-            'readable' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/readable/bootstrap.min.css',
-            'sandstone' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/sandstone/bootstrap.min.css',
-            'simplex' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css',
-            'slate' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css',
-            'spacelab' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/spacelab/bootstrap.min.css',
-            'superhero' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css',
-            'united' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css',
-            'yeti' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css',
+            'Cerulean' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css',
+            'Cosmo' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cosmo/bootstrap.min.css',
+            'Cyborg' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css',
+            'Darkly' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/darkly/bootstrap.min.css',
+            'Flatly' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css',
+            'Journal' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css',
+            'Lumen' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css',
+            'Paper' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css',
+            'Readable' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/readable/bootstrap.min.css',
+            'Sandstone' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/sandstone/bootstrap.min.css',
+            'Simplex' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css',
+            'Slate' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css',
+            'Spacelab' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/spacelab/bootstrap.min.css',
+            'Superhero' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css',
+            'United' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css',
+            'Yeti' => 'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css',
         ],
-        'icons' => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'
+        'fa' => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'
     ];
 
     public function __construct() {
         $this->updatedAt = new \DateTime;
         $this->bootstrapEnable = true;
+        $this->fontAwesome = true;
         $this->bootstrapTheme = $this->$CDN['theme'][0];
     }
 
     /**
      * Get Bootstrap Base CSS
      *
-     * @return integer
+     * @return string
      */
     public function getbootstrapCSS() {
         return $this->CDN['css'];
     }
-    
+
     /**
      * Get Bootstrap Base JS
      *
-     * @return integer
+     * @return string
      */
     public function getbootstrapJS() {
         return $this->CDN['js'];
-    }    
+    }
 
     /**
      * Get Bootstrap Themes
      *
-     * @return integer
+     * @return array
      */
     public function getThemeConfig() {
         return $this->CDN['theme'];
@@ -120,12 +128,21 @@ class WebConfig {
     /**
      * Get Jquery Base JS
      *
-     * @return integer
+     * @return string
      */
     public function getjQuery() {
         return $this->CDN['jquery'];
-    }    
-    
+    }
+
+    /**
+     * Get Font Awesome
+     *
+     * @return string
+     */
+    public function getfontAwesomeCSS() {
+        return $this->CDN['fa'];
+    }
+
     /**
      * Get id
      *
@@ -208,8 +225,7 @@ class WebConfig {
      *
      * @return WebConfig
      */
-    public function setWebsiteName($websiteName)
-    {
+    public function setWebsiteName($websiteName) {
         $this->websiteName = $websiteName;
 
         return $this;
@@ -220,8 +236,7 @@ class WebConfig {
      *
      * @return string
      */
-    public function getWebsiteName()
-    {
+    public function getWebsiteName() {
         return $this->websiteName;
     }
 
@@ -232,8 +247,7 @@ class WebConfig {
      *
      * @return WebConfig
      */
-    public function setWebsiteDesc($websiteDesc)
-    {
+    public function setWebsiteDesc($websiteDesc) {
         $this->websiteDesc = $websiteDesc;
 
         return $this;
@@ -244,8 +258,30 @@ class WebConfig {
      *
      * @return string
      */
-    public function getWebsiteDesc()
-    {
+    public function getWebsiteDesc() {
         return $this->websiteDesc;
     }
+
+    /**
+     * Set fontAwesomeEnable
+     *
+     * @param boolean $fontAwesomeEnable
+     *
+     * @return WebConfig
+     */
+    public function setFontAwesomeEnable($fontAwesomeEnable) {
+        $this->fontAwesomeEnable = $fontAwesomeEnable;
+
+        return $this;
+    }
+
+    /**
+     * Get fontAwesomeEnable
+     *
+     * @return boolean
+     */
+    public function getFontAwesomeEnable() {
+        return $this->fontAwesomeEnable;
+    }
+
 }

@@ -14,7 +14,6 @@ class WebConfigExtension extends \Twig_Extension implements \Twig_Extension_Glob
 
     public function getGlobals() {
         return array(
-            'text' => "new globals value here",
             'webconfig' => $this->getWebConfig()
         );
     }
