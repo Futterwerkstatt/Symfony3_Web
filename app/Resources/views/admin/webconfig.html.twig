@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>{{ 'nav.admin.config'|trans({}, 'AppBundle') }}</h2>
+    </div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" class="active"><a href="#config" aria-controls="config" role="tab" data-toggle="pill">admin.config</a></li>
+        <li role="presentation"><a href="#preview" aria-controls="preview" role="tab" data-toggle="pill">admin.config.preview</a></li>
+    </ul>    
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+        <div role="tabpanel" class="tab-pane active" id="config">     
+            <div class="row">
+                {{ form_start(edit_form) }}
+                {{ form_errors(edit_form) }}
+                <div class="col-sm-6">
+                    <div class="page-header"><h3>{{ 'admin.config.website'|trans({}, 'AppBundle') }}</h3></div>
+                            {{ form_row(edit_form.websiteName) }}
+                            {{ form_row(edit_form.websiteDesc) }}
+                </div>
+                <div class="col-sm-6">
+                    <div class="page-header"><h3>{{ 'admin.config.theme'|trans({}, 'AppBundle') }}</h3></div>
+                            {#                    {{ form_widget(edit_form) }}#}
+
+                    {{ form_widget(edit_form) }}
+                    <input class="btn btn-primary btn-sm" type="submit" value="Save" />
+
+                </div>
+                {{ form_end(edit_form) }}        
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="preview"> 
+            {{ include('admin/webconfig_htmldemo.html.twig') }}
+        </div>
+            
+    </div>
+
+{% endblock %}

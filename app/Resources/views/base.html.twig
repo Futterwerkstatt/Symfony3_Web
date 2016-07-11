@@ -5,16 +5,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}---{% endblock %}</title>
+        <title>{% block title %}{{ webconfig.websiteName }} / {{ webconfig.websiteDesc }}{% endblock %}</title>
 
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-{#        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-uSbimwRPo7PKyTL6azsx1CcBce/X9Qg+wX1MAjNV1gAkSXYveZbZeMMyJghdsSol" crossorigin="anonymous">#}
-        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Ib5WUYOh/fqe9wT9MDBX+VgUWQuUf8oDH3yuR9Kr+6Y5ejq92KR8LEuCbRiGZpG" crossorigin="anonymous">       
+        {% if webconfig.bootstrapEnable %}
+        <link href="{{ webconfig.bootstrapCSS }}" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link href="{{ webconfig.bootstrapTheme }}" rel="stylesheet">       
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
         <style>
             body { margin-top:60px; }
         </style>
+        {% endif %}
+        
     {% block stylesheets %}{% endblock %}
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -22,7 +24,7 @@
 <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
@@ -65,7 +67,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span>{{ 'nav.admin'|trans({}, 'AppBundle') }}</a>
                             <ul class="dropdown-menu">
                                
-                                <li><a href="{#{{ path('admin_taxonomy_index') }}#}#">{{ 'nav.admin.taxonomy'|trans({}, 'AppBundle') }}</a></li>
+                                <li><a href="{{ path('admin_config') }}">{{ 'nav.admin.config'|trans({}, 'AppBundle') }}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -82,11 +84,13 @@
             </div>
         {% endfor %}
     {% endfor %}                
+    
+    <div class="container" id="content">{% block body %}{% endblock %}</div>
 
-    <div class="container-fluid" id="content">{% block body %}{% endblock %}</div>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+{% if webconfig.bootstrapEnable %}
+<script type="text/javascript" src="{{ webconfig.getjQuery }}"></script>
+<script type="text/javascript" src="{{ webconfig.bootstrapJS }}" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+{% endif %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

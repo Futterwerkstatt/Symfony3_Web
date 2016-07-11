@@ -1,11 +1,3 @@
-app_term:
-    resource: "@AppBundle/Controller/TermController.php"
-    type:     annotation
-
-app_taxonomy:
-    resource: "@AppBundle/Controller/TaxonomyController.php"
-    type:     annotation
-
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     
