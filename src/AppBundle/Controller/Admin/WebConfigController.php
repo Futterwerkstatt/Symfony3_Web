@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * WebConfig controller.
  *
- * @Route("/admin/config")
+ * @Route("/admin")
  */
 class WebConfigController extends Controller
 {
@@ -19,7 +19,7 @@ class WebConfigController extends Controller
     /**
      * Displays a form to edit an existing WebConfig entity.
      *
-     * @Route("/", name="admin_config")
+     * @Route("/config", name="admin_config")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request)
@@ -36,6 +36,7 @@ class WebConfigController extends Controller
             $webConfig->setUpdatedAt(new \DateTime);
             $em->persist($webConfig);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'flash.success.message');
         }
 
         return $this->render('admin/webconfig.html.twig', array(

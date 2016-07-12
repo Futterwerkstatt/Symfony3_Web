@@ -8,8 +8,9 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-pills" role="tablist">
-        <li role="presentation" class="active"><a href="#config" aria-controls="config" role="tab" data-toggle="pill">admin.config</a></li>
-        <li role="presentation"><a href="#preview" aria-controls="preview" role="tab" data-toggle="pill">admin.config.preview</a></li>
+        <li role="presentation" class="active"><a href="#config" aria-controls="config" role="tab" data-toggle="pill">{{ 'admin.config'|trans({}, 'AppBundle') }}</a></li>
+        <li role="presentation"><a href="#social" aria-controls="social" role="tab" data-toggle="pill">{{ 'admin.social'|trans({}, 'AppBundle') }}</a></li>
+        <li role="presentation"><a href="#preview" aria-controls="preview" role="tab" data-toggle="pill">{{ 'admin.config.preview'|trans({}, 'AppBundle') }}</a></li>
     </ul>    
 
     <!-- Tab panes -->
@@ -21,28 +22,61 @@
                 {{ form_errors(edit_form) }}
                 <div class="col-sm-6">
                     <div class="page-header"><h3><i class="fa fa-info-circle text-primary" aria-hidden="true"></i> {{ 'admin.config.website'|trans({}, 'AppBundle') }}</h3></div>
-                            {{ form_row(edit_form.websiteName) }}
-                            {{ form_row(edit_form.websiteDesc) }}
+                                {{ form_row(edit_form.websiteName) }}
+                                {{ form_row(edit_form.websiteDescription) }}
                     <div class="page-header"><h3><i class="fa fa-font text-primary" aria-hidden="true"></i> {{ 'admin.config.fonts'|trans({}, 'AppBundle') }}</h3></div>
-                            {{ form_row(edit_form.fontAwesomeCSS) }}
-                            {{ form_row(edit_form.fontAwesomeEnable) }}
+                                {{ form_row(edit_form.fontAwesomeCSS) }}
+                                {{ form_row(edit_form.fontAwesomeEnable) }}
                 </div>
                 <div class="col-sm-6">
                     <div class="page-header"><h3><i class="fa fa-picture-o text-primary" aria-hidden="true"></i> {{ 'admin.config.theme'|trans({}, 'AppBundle') }}</h3></div>
-                            {#                    {{ form_widget(edit_form) }}#}
-
-                    {{ form_widget(edit_form) }}
-
-
+                                {{ form_row(edit_form.bootstrapTheme) }}
+                                {{ form_row(edit_form.bootstrapEnable) }}
+                                {{ form_row(edit_form.bootstrapCSS) }}
+                                {{ form_row(edit_form.bootstrapJS) }}
+                                {{ form_row(edit_form.jQuery) }}
                 </div>
-                {{ form_end(edit_form) }}        
+
             </div>
         </div>
+
+        <div role="tabpanel" class="tab-pane" id="social"> 
+            <div class="col-sm-6">
+                <div class="page-header"><h3><i class="fa fa-share-alt text-primary" aria-hidden="true"></i> {{ 'admin.config.social'|trans({}, 'AppBundle') }}</h3></div>
+                            {{ form_row(edit_form.urlFacebook) }}
+                            {{ form_row(edit_form.urlInstagram) }}
+                            {{ form_row(edit_form.urlTwitter) }}
+
+            </div>
+        </div>            
 
         <div role="tabpanel" class="tab-pane" id="preview"> 
             {{ include('admin/webconfig_htmldemo.html.twig') }}
         </div>
 
     </div>
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }} 
+{% endblock %}
 
+{% block javascripts %}
+    <script>
+
+        $(function () {
+            if (!$("#web_config_bootstrapEnable").attr("checked")) {
+                $("#web_config_bootstrapTheme").attr('disabled', 'disabled');
+            }
+            $('#web_config_bootstrapEnable').click('web_config_bootstrapTheme', toggleSelection);
+        });
+
+        function toggleSelection(e) {
+            var el = '#' + e.data;
+            console.log(arguments);
+            if (this.checked) {
+                $(el).removeAttr('disabled');
+            } else {
+                $(el).attr('disabled', 'disabled');
+            }
+        }
+    </script>
 {% endblock %}

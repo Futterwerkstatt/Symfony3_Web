@@ -40,7 +40,7 @@ class WebConfig {
      *
      * @ORM\Column(name="website_description", type="string", length=255, nullable=true)
      */
-    private $websiteDesc;
+    private $websiteDescription;
 
     /**
      * @var bool
@@ -91,6 +91,30 @@ class WebConfig {
         'fa' => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'
     ];
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_facebook", type="string", length=255, nullable=true)
+     */
+    private $urlFacebook;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_instagram", type="string", length=255, nullable=true)
+     */
+    private $urlInstagram;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_twitter", type="string", length=255, nullable=true)
+     */
+    private $urlTwitter;    
+    
+    /**
+     * Constructor
+     */
     public function __construct() {
         $this->updatedAt = new \DateTime;
         $this->bootstrapEnable = true;
@@ -143,12 +167,16 @@ class WebConfig {
         return $this->CDN['fa'];
     }
 
+    // end custom methods
+  
+
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -159,7 +187,8 @@ class WebConfig {
      *
      * @return WebConfig
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -170,52 +199,9 @@ class WebConfig {
      *
      * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set bootstrapEnable
-     *
-     * @param boolean $bootstrapEnable
-     *
-     * @return WebConfig
-     */
-    public function setBootstrapEnable($bootstrapEnable) {
-        $this->bootstrapEnable = $bootstrapEnable;
-
-        return $this;
-    }
-
-    /**
-     * Get bootstrapEnable
-     *
-     * @return boolean
-     */
-    public function getBootstrapEnable() {
-        return $this->bootstrapEnable;
-    }
-
-    /**
-     * Set bootstrapTheme
-     *
-     * @param string $bootstrapTheme
-     *
-     * @return WebConfig
-     */
-    public function setBootstrapTheme($bootstrapTheme) {
-        $this->bootstrapTheme = $bootstrapTheme;
-
-        return $this;
-    }
-
-    /**
-     * Get bootstrapTheme
-     *
-     * @return string
-     */
-    public function getBootstrapTheme() {
-        return $this->bootstrapTheme;
     }
 
     /**
@@ -225,7 +211,8 @@ class WebConfig {
      *
      * @return WebConfig
      */
-    public function setWebsiteName($websiteName) {
+    public function setWebsiteName($websiteName)
+    {
         $this->websiteName = $websiteName;
 
         return $this;
@@ -236,30 +223,81 @@ class WebConfig {
      *
      * @return string
      */
-    public function getWebsiteName() {
+    public function getWebsiteName()
+    {
         return $this->websiteName;
     }
 
     /**
-     * Set websiteDesc
+     * Set websiteDescription
      *
-     * @param string $websiteDesc
+     * @param string $websiteDescription
      *
      * @return WebConfig
      */
-    public function setWebsiteDesc($websiteDesc) {
-        $this->websiteDesc = $websiteDesc;
+    public function setWebsiteDescription($websiteDescription)
+    {
+        $this->websiteDescription = $websiteDescription;
 
         return $this;
     }
 
     /**
-     * Get websiteDesc
+     * Get websiteDescription
      *
      * @return string
      */
-    public function getWebsiteDesc() {
-        return $this->websiteDesc;
+    public function getWebsiteDescription()
+    {
+        return $this->websiteDescription;
+    }
+
+    /**
+     * Set bootstrapEnable
+     *
+     * @param boolean $bootstrapEnable
+     *
+     * @return WebConfig
+     */
+    public function setBootstrapEnable($bootstrapEnable)
+    {
+        $this->bootstrapEnable = $bootstrapEnable;
+
+        return $this;
+    }
+
+    /**
+     * Get bootstrapEnable
+     *
+     * @return boolean
+     */
+    public function getBootstrapEnable()
+    {
+        return $this->bootstrapEnable;
+    }
+
+    /**
+     * Set bootstrapTheme
+     *
+     * @param string $bootstrapTheme
+     *
+     * @return WebConfig
+     */
+    public function setBootstrapTheme($bootstrapTheme)
+    {
+        $this->bootstrapTheme = $bootstrapTheme;
+
+        return $this;
+    }
+
+    /**
+     * Get bootstrapTheme
+     *
+     * @return string
+     */
+    public function getBootstrapTheme()
+    {
+        return $this->bootstrapTheme;
     }
 
     /**
@@ -269,7 +307,8 @@ class WebConfig {
      *
      * @return WebConfig
      */
-    public function setFontAwesomeEnable($fontAwesomeEnable) {
+    public function setFontAwesomeEnable($fontAwesomeEnable)
+    {
         $this->fontAwesomeEnable = $fontAwesomeEnable;
 
         return $this;
@@ -280,8 +319,80 @@ class WebConfig {
      *
      * @return boolean
      */
-    public function getFontAwesomeEnable() {
+    public function getFontAwesomeEnable()
+    {
         return $this->fontAwesomeEnable;
     }
 
+    /**
+     * Set urlFacebook
+     *
+     * @param string $urlFacebook
+     *
+     * @return WebConfig
+     */
+    public function setUrlFacebook($urlFacebook)
+    {
+        $this->urlFacebook = $urlFacebook;
+
+        return $this;
+    }
+
+    /**
+     * Get urlFacebook
+     *
+     * @return string
+     */
+    public function getUrlFacebook()
+    {
+        return $this->urlFacebook;
+    }
+
+    /**
+     * Set urlInstagram
+     *
+     * @param string $urlInstagram
+     *
+     * @return WebConfig
+     */
+    public function setUrlInstagram($urlInstagram)
+    {
+        $this->urlInstagram = $urlInstagram;
+
+        return $this;
+    }
+
+    /**
+     * Get urlInstagram
+     *
+     * @return string
+     */
+    public function getUrlInstagram()
+    {
+        return $this->urlInstagram;
+    }
+
+    /**
+     * Set urlTwitter
+     *
+     * @param string $urlTwitter
+     *
+     * @return WebConfig
+     */
+    public function setUrlTwitter($urlTwitter)
+    {
+        $this->urlTwitter = $urlTwitter;
+
+        return $this;
+    }
+
+    /**
+     * Get urlTwitter
+     *
+     * @return string
+     */
+    public function getUrlTwitter()
+    {
+        return $this->urlTwitter;
+    }
 }

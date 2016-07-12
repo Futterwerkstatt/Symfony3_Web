@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user_options")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserOptionsRepository")
  */
-class UserOptions
-{
+class UserOptions {
+
     /**
      * @var int
      *
@@ -35,14 +35,19 @@ class UserOptions
      */
     private $updatedAt;
 
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->updatedAt = new \DateTime;
+    }
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -53,8 +58,7 @@ class UserOptions
      *
      * @return UserOptions
      */
-    public function setNotifications($notifications)
-    {
+    public function setNotifications($notifications) {
         $this->notifications = $notifications;
 
         return $this;
@@ -65,8 +69,7 @@ class UserOptions
      *
      * @return bool
      */
-    public function getNotifications()
-    {
+    public function getNotifications() {
         return $this->notifications;
     }
 
@@ -77,8 +80,7 @@ class UserOptions
      *
      * @return UserOptions
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -89,9 +91,8 @@ class UserOptions
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
-}
 
+}

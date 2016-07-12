@@ -33,15 +33,15 @@ class WebConfig {
      *
      * @ORM\Column(name="website_name", type="string", length=255)
      */
-    private $websiteName;    
+    private $websiteName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="website_description", type="string", length=255, nullable=true)
      */
-    private $websiteDesc;    
-    
+    private $websiteDescription;
+
     /**
      * @var bool
      *
@@ -55,14 +55,13 @@ class WebConfig {
      * @ORM\Column(name="bootstrap_theme", type="string", length=255)
      */
     private $bootstrapTheme;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="fa_enable", type="boolean")
      */
     private $fontAwesomeEnable;
-    
 
     /**
      * @var array
@@ -92,6 +91,30 @@ class WebConfig {
         'fa' => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'
     ];
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_facebook", type="string", length=255, nullable=true)
+     */
+    private $urlFacebook;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_instagram", type="string", length=255, nullable=true)
+     */
+    private $urlInstagram;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_twitter", type="string", length=255, nullable=true)
+     */
+    private $urlTwitter;    
+    
+    /**
+     * Constructor
+     */
     public function __construct() {
         $this->updatedAt = new \DateTime;
         $this->bootstrapEnable = true;
@@ -107,7 +130,7 @@ class WebConfig {
     public function getbootstrapCSS() {
         return $this->CDN['css'];
     }
-    
+
     /**
      * Get Bootstrap Base JS
      *
@@ -115,7 +138,7 @@ class WebConfig {
      */
     public function getbootstrapJS() {
         return $this->CDN['js'];
-    }    
+    }
 
     /**
      * Get Bootstrap Themes
@@ -133,8 +156,8 @@ class WebConfig {
      */
     public function getjQuery() {
         return $this->CDN['jquery'];
-    }    
- 
+    }
+
     /**
      * Get Font Awesome
      *
@@ -142,129 +165,8 @@ class WebConfig {
      */
     public function getfontAwesomeCSS() {
         return $this->CDN['fa'];
-    }     
-    
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId() {
-        return $this->id;
     }
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return WebConfig
-     */
-    public function setUpdatedAt($updatedAt) {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt() {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set bootstrapEnable
-     *
-     * @param boolean $bootstrapEnable
-     *
-     * @return WebConfig
-     */
-    public function setBootstrapEnable($bootstrapEnable) {
-        $this->bootstrapEnable = $bootstrapEnable;
-
-        return $this;
-    }
-
-    /**
-     * Get bootstrapEnable
-     *
-     * @return boolean
-     */
-    public function getBootstrapEnable() {
-        return $this->bootstrapEnable;
-    }
-
-    /**
-     * Set bootstrapTheme
-     *
-     * @param string $bootstrapTheme
-     *
-     * @return WebConfig
-     */
-    public function setBootstrapTheme($bootstrapTheme) {
-        $this->bootstrapTheme = $bootstrapTheme;
-
-        return $this;
-    }
-
-    /**
-     * Get bootstrapTheme
-     *
-     * @return string
-     */
-    public function getBootstrapTheme() {
-        return $this->bootstrapTheme;
-    }
-
-    /**
-     * Set websiteName
-     *
-     * @param string $websiteName
-     *
-     * @return WebConfig
-     */
-    public function setWebsiteName($websiteName)
-    {
-        $this->websiteName = $websiteName;
-
-        return $this;
-    }
-
-    /**
-     * Get websiteName
-     *
-     * @return string
-     */
-    public function getWebsiteName()
-    {
-        return $this->websiteName;
-    }
-
-    /**
-     * Set websiteDesc
-     *
-     * @param string $websiteDesc
-     *
-     * @return WebConfig
-     */
-    public function setWebsiteDesc($websiteDesc)
-    {
-        $this->websiteDesc = $websiteDesc;
-
-        return $this;
-    }
-
-    /**
-     * Get websiteDesc
-     *
-     * @return string
-     */
-    public function getWebsiteDesc()
-    {
-        return $this->websiteDesc;
-    }
-    
+    // end custom methods
+  
 }

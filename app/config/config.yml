@@ -70,3 +70,6 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\User
+    profile:
+        form:
+              type: AppBundle\Form\UserProfileType

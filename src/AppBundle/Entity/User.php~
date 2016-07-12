@@ -58,28 +58,4 @@ class User extends BaseUser {
     {
         return $this->biography;
     }
-
-    /**
-     * Set userOptions
-     *
-     * @param \AppBundle\Entity\UserOptions $userOptions
-     *
-     * @return User
-     */
-    public function setUserOptions(\AppBundle\Entity\UserOptions $userOptions = null)
-    {
-        $this->userOptions = $userOptions;
-
-        return $this;
-    }
-
-    /**
-     * Get userOptions
-     *
-     * @return \AppBundle\Entity\UserOptions
-     */
-    public function getUserOptions()
-    {
-        return $this->userOptions;
-    }
 }

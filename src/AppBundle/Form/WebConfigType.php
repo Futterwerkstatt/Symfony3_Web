@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-
 use AppBundle\Entity\WebConfig;
 
 class WebConfigType extends AbstractType {
@@ -25,19 +24,22 @@ class WebConfigType extends AbstractType {
 
         $builder
                 ->add('websiteName')
-                ->add('websiteDesc')
-                ->add('fontAwesomeEnable', CheckboxType::class , [
+                ->add('websiteDescription')
+                ->add('fontAwesomeEnable', CheckboxType::class, [
                     'label' => 'Enable Font Awesome',
                     'required' => false
                 ])
                 ->add('fontAwesomeCSS', UrlType::class, [
                     'label' => "Font Awesome CSS", 'disabled' => true
-                ])                
+                ])
                 ->add('bootstrapTheme', ChoiceType::class, [
                     'choices' => $themes,
                     'label' => "Theme",
                 ])
-                ->add('bootstrapEnable')
+                ->add('bootstrapEnable', CheckboxType::class, [
+                    'label' => 'Enable Bootstrap Theme',
+                    'required' => false
+                ])
                 ->add('bootstrapCSS', UrlType::class, [
                     'label' => "Bootstrap CSS", 'disabled' => true
                 ])
@@ -46,7 +48,19 @@ class WebConfigType extends AbstractType {
                 ])
                 ->add('jQuery', UrlType::class, [
                     'label' => "jQuery", 'disabled' => true
-                ])                
+                ])
+                ->add('urlFacebook', UrlType::class, [
+                    'label' => "Facebook Page",
+                    'required' => false
+                ])
+                ->add('urlInstagram', UrlType::class, [
+                    'label' => "Instagram",
+                    'required' => false
+                ])
+                ->add('urlTwitter', UrlType::class, [
+                    'label' => "Twitter",
+                    'required' => false
+                ])
         ;
     }
 
